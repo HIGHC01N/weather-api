@@ -10,9 +10,9 @@ const weather = new Weather(weatherLocation.city, weatherLocation.country);
 // Init UI Object
 const ui = new UI();
 
+
 // Get weather on DOM Load
 document.addEventListener("DOMContentLoaded", getWeather);
-
 // Change location event
 document.querySelector("#w-change-btn").addEventListener("click", (e) => {
   const city = document.querySelector("#city").value;
@@ -30,10 +30,15 @@ document.querySelector("#w-change-btn").addEventListener("click", (e) => {
   modal.hide();
 });
 
+window.onload = function Paints(weatherData) {
+  ui.paint(weatherData)
+}
+
 function getWeather() {
   weather.getWeather()
   .then((weatherData) => {
-    ui.paint(weatherData);
+    console.log(ui.paint(weatherData))
+    return Paints(weatherData);
   })
   .catch(err => {
     console.log(err);
